@@ -25,8 +25,8 @@ const industries: IndustryData[] = [
       '납기 리마인더 자동화로 클레임 예방',
     ],
     templateName: '제조업 템플릿',
-    templateColor: '#2563eb',
-    templateBg: '#dbeafe',
+    templateColor: '#1a472a',
+    templateBg: '#e8f0ec',
     items: [
       { label: '삼성전기 — 회로기판 200pcs', status: '납기 D-5', statusClass: 's-ongoing' },
       { label: 'LG화학 — 소재 공급 계약', status: '검토 중', statusClass: 's-review' },
@@ -109,8 +109,8 @@ const industries: IndustryData[] = [
       '현장 담당자 커뮤니케이션 이력 보관',
     ],
     templateName: '건설업 템플릿',
-    templateColor: '#2563eb',
-    templateBg: '#dbeafe',
+    templateColor: '#1a472a',
+    templateBg: '#e8f0ec',
     items: [
       { label: '판교 데이터센터 — 설비 공사', status: '입찰 준비', statusClass: 's-review' },
       { label: '용산 오피스 리모델링', status: '견적 제출', statusClass: 's-ongoing' },

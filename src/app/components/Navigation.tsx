@@ -14,7 +14,7 @@ export function Navigation() {
       </ul>
       <a 
         href="#pricing" 
-        className="bg-[var(--accent)] text-white px-5 py-2 rounded-lg text-sm font-semibold no-underline transition-all hover:bg-[#1d4ed8] hover:-translate-y-0.5"
+        className="bg-[var(--accent)] text-white px-5 py-2 rounded-lg text-sm font-semibold no-underline transition-all hover:bg-[#0f3820] hover:-translate-y-0.5"
       >
         무료로 시작하기
       </a>

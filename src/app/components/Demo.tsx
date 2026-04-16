@@ -8,7 +8,7 @@ export function Demo() {
     new: false,
     pipe: false,
   });
-  const [color, setColor] = useState('#2563eb');
+  const [color, setColor] = useState('#1a472a');
   const [layout, setLayout] = useState(2);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -35,7 +35,7 @@ export function Demo() {
   };
 
   const colors = [
-    { main: '#2563eb', light: '#dbeafe', name: '블루' },
+    { main: '#1a472a', light: '#e8f0ec', name: '브랜드 그린' },
     { main: '#0d9488', light: '#ccfbf1', name: '틸' },
     { main: '#7c3aed', light: '#ede9fe', name: '바이올렛' },
     { main: '#dc2626', light: '#fee2e2', name: '레드' },
@@ -47,7 +47,7 @@ export function Demo() {
   return (
     <section ref={sectionRef} className="bg-gradient-to-br from-[#0f172a] to-[#1e2a4a] text-white py-24 px-[5vw]" id="demo">
       <div className="reveal">
-        <div className="text-[0.78rem] font-bold tracking-[2px] uppercase text-[#60a5fa] mb-3">
+        <div className="text-[0.78rem] font-bold tracking-[2px] uppercase text-[#7fc89d] mb-3">
           인터랙티브 데모
         </div>
         <div className="text-[clamp(1.8rem,3.5vw,2.6rem)] font-black tracking-[-1px] text-white leading-[1.2] mb-4">
@@ -118,7 +118,7 @@ export function Demo() {
                 onClick={() => setLayout(opt.cols)}
                 className={`flex-1 p-2 rounded-lg cursor-pointer border-[1.5px] transition-all text-center text-xs ${
                   layout === opt.cols
-                    ? 'border-[var(--accent)] bg-[rgba(37,99,235,0.15)] text-[#60a5fa]'
+                    ? 'border-[var(--accent)] bg-[rgba(26,71,42,0.15)] text-[#7fc89d]'
                     : 'border-transparent bg-white/7 text-[#94a3b8]'
                 }`}
               >
@@ -135,7 +135,7 @@ export function Demo() {
             <span className="text-sm font-bold text-[#f1f5f9]">📊 나의 대시보드 미리보기</span>
             <span
               className="text-[0.72rem] px-3 py-1 rounded-full font-semibold"
-              style={{ background: 'rgba(37,99,235,0.3)', color: color }}
+              style={{ background: 'rgba(26,71,42,0.3)', color: color }}
             >
               실시간 반영 중
             </span>

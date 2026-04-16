@@ -128,7 +128,7 @@ export function Pricing() {
               href="#"
               className={`block w-full py-3 rounded-[10px] text-sm font-bold text-center no-underline transition-all ${
                 plan.ctaStyle === 'fill'
-                  ? 'bg-[var(--accent)] text-white shadow-[0_4px_16px_rgba(37,99,235,0.3)] hover:bg-[#1d4ed8]'
+                  ? 'bg-[var(--accent)] text-white shadow-[0_4px_16px_rgba(26,71,42,0.3)] hover:bg-[#0f3820]'
                   : 'bg-transparent border-[1.5px] border-[var(--border)] text-[var(--ink)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
               }`}
             >

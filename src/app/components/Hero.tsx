@@ -1,9 +1,9 @@
 export function Hero() {
   return (
-    <section className="min-h-screen flex flex-col md:flex-row items-center px-[5vw] pt-[100px] pb-20 relative overflow-hidden bg-gradient-to-br from-[#f0f4ff] via-[#f5f6fa] to-[#eef9f7]">
+    <section className="min-h-screen flex flex-col md:flex-row items-center px-[5vw] pt-[100px] pb-20 relative overflow-hidden bg-gradient-to-br from-[#eef5f0] via-[#f5f6fa] to-[#e8f0ec]">
       {/* Background shapes */}
-      <div className="absolute w-[600px] h-[600px] rounded-full blur-[80px] bg-[rgba(37,99,235,0.12)] -top-[200px] -right-[100px] pointer-events-none"></div>
-      <div className="absolute w-[400px] h-[400px] rounded-full blur-[80px] bg-[rgba(13,148,136,0.1)] -bottom-[100px] left-[10%] pointer-events-none"></div>
+      <div className="absolute w-[600px] h-[600px] rounded-full blur-[80px] bg-[rgba(26,71,42,0.12)] -top-[200px] -right-[100px] pointer-events-none"></div>
+      <div className="absolute w-[400px] h-[400px] rounded-full blur-[80px] bg-[rgba(45,103,65,0.1)] -bottom-[100px] left-[10%] pointer-events-none"></div>
 
       {/* Hero Content */}
       <div className="max-w-[640px] relative z-[2]" style={{ animation: 'fadeUp 0.8s ease both' }}>
@@ -20,7 +20,7 @@ export function Hero() {
           세XX포스나 허브XX처럼 무겁고 복잡한 도구는 이제 그만. Dangol CRM은 우리 회사에 꼭 맞는 구조로, 아무 기술 지식 없이도 자유롭게 커스터마이징할 수 있습니다.
         </p>
         <div className="flex gap-3.5 flex-wrap mb-12">
-          <a href="#demo" className="bg-[var(--accent)] text-white px-7 py-3.5 rounded-[10px] text-[0.95rem] font-bold no-underline transition-all hover:bg-[#1d4ed8] hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(37,99,235,0.35)] hover:shadow-[0_6px_28px_rgba(37,99,235,0.4)]">
+          <a href="#demo" className="bg-[var(--accent)] text-white px-7 py-3.5 rounded-[10px] text-[0.95rem] font-bold no-underline transition-all hover:bg-[#0f3820] hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(26,71,42,0.35)] hover:shadow-[0_6px_28px_rgba(26,71,42,0.4)]">
             🚀 무료로 시작하기
           </a>
           <a href="#demo" className="bg-white text-[var(--ink)] px-7 py-3.5 rounded-[10px] text-[0.95rem] font-semibold no-underline border-[1.5px] border-[var(--border)] transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5">
