@@ -12,12 +12,20 @@ export function Navigation() {
         <li><a href="#pricing" className="no-underline text-[var(--ink-soft)] text-sm font-medium hover:text-[var(--accent)] transition-colors">요금제</a></li>
         <li><a href="#cases" className="no-underline text-[var(--ink-soft)] text-sm font-medium hover:text-[var(--accent)] transition-colors">고객 사례</a></li>
       </ul>
-      <a 
-        href="#pricing" 
-        className="bg-[var(--accent)] text-white px-5 py-2 rounded-lg text-sm font-semibold no-underline transition-all hover:bg-[#0f3820] hover:-translate-y-0.5"
-      >
-        무료로 시작하기
-      </a>
+      <div className="flex items-center gap-2">
+        <a
+          href="#login"
+          className="no-underline text-[var(--ink-soft)] text-sm font-medium px-3 py-2 rounded-lg transition-colors hover:text-[var(--accent)]"
+        >
+          로그인
+        </a>
+        <a
+          href="#pricing"
+          className="bg-[var(--accent)] text-white px-5 py-2 rounded-lg text-sm font-semibold no-underline transition-all hover:bg-[#0f3820] hover:-translate-y-0.5"
+        >
+          무료로 시작하기
+        </a>
+      </div>
       <div className="md:hidden cursor-pointer text-xl">☰</div>
     </nav>
   );
