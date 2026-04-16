@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexCRM — 당신의 비즈니스에 맞는 CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    —ink: #0f1117;
+    —ink-soft: #3a3f52;
+    —ink-muted: #7c8099;
+    —bg: #f5f6fa;
+    —white: #ffffff;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --accent-glow: #3b82f6;
+    --teal: #0d9488;
+    --teal-light: #ccfbf1;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --violet: #7c3aed;
+    --violet-light: #ede9fe;
+    --border: #e2e5ef;
+    --card-bg: #ffffff;
+    --section-alt: #f0f2f9;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(15,17,23,0.07);
+    --shadow-lg: 0 12px 48px rgba(15,17,23,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 64px;
+  }
+  .nav-logo {
+    font-weight: 800; font-size: 1.25rem; color: var(--accent);
+    letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--ink-soft); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent); color: #fff;
+    padding: 8px 20px; border-radius: 8px;
+    font-size: 0.88rem; font-weight: 600;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .nav-mobile-btn { display: none; cursor: pointer; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 5vw 80px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0f4ff 0%, #f5f6fa 50%, #eef9f7 100%);
+  }
+  .hero-bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .hero-bg-1 {
+    width: 600px; height: 600px;
+    background: rgba(37,99,235,0.12);
+    top: -200px; right: -100px;
+  }
+  .hero-bg-2 {
+    width: 400px; height: 400px;
+    background: rgba(13,148,136,0.1);
+    bottom: -100px; left: 10%;
+  }
+  .hero-content {
+    max-width: 640px;
+    position: relative; z-index: 2;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-light); color: var(--accent);
+    padding: 6px 14px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 28px;
+  }
+  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.5s infinite; }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.18;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: normal; font-family: 'Noto Sans KR', sans-serif; color: var(--accent); }
+  .hero p {
+    font-size: 1.1rem; color: var(--ink-soft);
+    font-weight: 400; margin-bottom: 36px;
+    max-width: 520px;
+  }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    padding: 14px 28px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 700;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(37,99,235,0.35);
+  }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 6px 28px rgba(37,99,235,0.4); }
+  .btn-secondary {
+    background: #fff; color: var(--ink);
+    padding: 14px 28px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600;
+    text-decoration: none; border: 1.5px solid var(--border);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 52px;
+    flex-wrap: wrap;
+  }
+  .hero-stat-item { display: flex; flex-direction: column; }
+  .hero-stat-num { font-size: 1.8rem; font-weight: 900; color: var(--ink); letter-spacing: -1px; }
+  .hero-stat-label { font-size: 0.8rem; color: var(--ink-muted); margin-top: 2px; }
+
+  .hero-visual {
+    flex: 1; display: flex; justify-content: flex-end; align-items: center;
+    position: relative; z-index: 2; min-width: 340px;
+    animation: fadeLeft 0.9s 0.2s ease both;
+  }
+  .hero-dashboard {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    padding: 24px;
+    width: 100%; max-width: 460px;
+    border: 1px solid var(--border);
+  }
+  .dash-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .dash-title { font-weight: 700; font-size: 0.9rem; color: var(--ink); }
+  .dash-period {
+    background: var(--accent-light); color: var(--accent);
+    padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;
+  }
+  .dash-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .dash-kpi {
+    background: var(--bg); border-radius: 12px; padding: 14px 12px;
+    border: 1px solid var(--border);
+  }
+  .dash-kpi-label { font-size: 0.7rem; color: var(--ink-muted); margin-bottom: 4px; }
+  .dash-kpi-value { font-size: 1.1rem; font-weight: 800; color: var(--ink); }
+  .dash-kpi-badge { font-size: 0.68rem; font-weight: 600; color: var(--teal); }
+  .dash-funnel { display: flex; gap: 6px; margin-bottom: 16px; }
+  .funnel-step {
+    flex: 1; background: var(—bg); border-radius: 8px; padding: 8px 6px;
+    text-align: center; border: 1.5px solid transparent;
+    font-size: 0.68rem; font-weight: 600; color: var(—ink-muted);
+    transition: all 0.2s;
+  }
+  .funnel-step.active { border-color: var(—accent); background: var(—accent-light); color: var(—accent); }
+  .funnel-step .fnum { font-size: 1rem; font-weight: 800; display: block; color: var(—ink); }
+  .dash-bar-section { }
+  .bar-label-row { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(—ink-muted); margin-bottom: 8px; }
+  .bar-track { background: var(—bg); border-radius: 50px; height: 8px; margin-bottom: 8px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 50px; }
+  .bar-fill.blue { background: var(—accent); width: 72%; }
+  .bar-fill.teal { background: var(—teal); width: 45%; }
+  .bar-fill.amber { background: var(—amber); width: 58%; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 96px 5vw; }
+  .section-label {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 900; letter-spacing: -1px;
+    color: var(--ink); line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-desc { font-size: 1rem; color: var(--ink-soft); max-width: 560px; }
+
+  /* ── PROBLEM / SOLUTION ── */
+  .prob-sol { background: var(--white); }
+  .prob-sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; align-items: start; }
+  .prob-col { }
+  .prob-col h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+  .prob-col h3 .tag {
+    font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 50px;
+    letter-spacing: 1px;
+  }
+  .tag-prob { background: #fee2e2; color: #dc2626; }
+  .tag-sol { background: var(--teal-light); color: var(--teal); }
+  .prob-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .prob-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--bg); border-radius: 12px; padding: 14px 16px;
+    font-size: 0.9rem; color: var(--ink-soft);
+    border: 1px solid var(--border);
+  }
+  .prob-list li .icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; flex-shrink: 0; margin-top: 1px;
+  }
+  .icon-red { background: #fee2e2; }
+  .icon-green { background: var(--teal-light); }
+  .sol-list li { border-color: var(--teal-light); }
+
+  /* ── FEATURES ── */
+  .features { background: var(--section-alt); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 56px; }
+  .feature-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 28px 24px; border: 1px solid var(--border);
+    transition: all 0.25s; cursor: default;
+  }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 18px;
+  }
+  .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+  .feature-card p { font-size: 0.87rem; color: var(--ink-soft); line-height: 1.6; }
+  .fi-blue { background: var(--accent-light); }
+  .fi-teal { background: var(--teal-light); }
+  .fi-amber { background: var(--amber-light); }
+  .fi-violet { background: var(--violet-light); }
+
+  /* ── INDUSTRY ── */
+  .industries { background: var(--white); }
+  .industry-tabs {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; margin-bottom: 32px;
+  }
+  .ind-tab {
+    padding: 8px 18px; border-radius: 50px;
+    border: 1.5px solid var(--border);
+    font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    background: none; color: var(--ink-soft);
+    transition: all 0.2s;
+  }
+  .ind-tab.active, .ind-tab:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .industry-panel { display: none; }
+  .industry-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .ind-content h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 12px; }
+  .ind-content p { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 20px; }
+  .ind-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .ind-points li { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--ink-soft); }
+  .ind-points li::before { content: '✓'; font-weight: 700; color: var(--teal); }
+  .ind-mockup {
+    background: var(--bg); border-radius: 16px; padding: 24px;
+    border: 1px solid var(--border);
+  }
+  .ind-mock-title { font-weight: 700; font-size: 0.85rem; color: var(--ink); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .ind-mock-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #fff; border-radius: 8px; padding: 10px 14px;
+    margin-bottom: 8px; font-size: 0.8rem;
+    border: 1px solid var(--border);
+  }
+  .ind-mock-status {
+    padding: 3px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 600;
+  }
+  .s-ongoing { background: var(--teal-light); color: var(--teal); }
+  .s-review { background: var(--amber-light); color: var(--amber); }
+  .s-done { background: #dcfce7; color: #16a34a; }
+
+  /* ── DEMO ── */
+  .demo-section { background: linear-gradient(135deg, #0f172a 0%, #1e2a4a 100%); color: #fff; }
+  .demo-section .section-label { color: #60a5fa; }
+  .demo-section .section-title { color: #fff; }
+  .demo-section .section-desc { color: #94a3b8; }
+  .demo-container { display: grid; grid-template-columns: 280px 1fr; gap: 32px; margin-top: 56px; }
+  .demo-controls {
+    background: rgba(255,255,255,0.05); border-radius: var(--radius);
+    padding: 24px; border: 1px solid rgba(255,255,255,0.1);
+  }
+  .demo-controls h4 { font-size: 0.85rem; font-weight: 700; color: #94a3b8; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  .toggle-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; }
+  .toggle-label { font-size: 0.875rem; color: #cbd5e1; }
+  .toggle-switch {
+    position: relative; width: 40px; height: 22px; cursor: pointer;
+  }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,0.15); border-radius: 50px;
+    transition: 0.3s;
+  }
+  .toggle-slider::before {
+    content: ''; position: absolute;
+    width: 16px; height: 16px; background: #fff; border-radius: 50%;
+    left: 3px; top: 3px; transition: 0.3s;
+  }
+  .toggle-switch input:checked + .toggle-slider { background: var(--accent); }
+  .toggle-switch input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+  .color-pickers { display: flex; gap: 8px; margin-bottom: 24px; }
+  .color-dot {
+    width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+    border: 2px solid transparent; transition: all 0.2s;
+  }
+  .color-dot.selected { border-color: #fff; transform: scale(1.15); }
+  .layout-opts { display: flex; gap: 8px; }
+  .layout-opt {
+    flex: 1; padding: 8px; border-radius: 8px; cursor: pointer;
+    background: rgba(255,255,255,0.07); border: 1.5px solid transparent;
+    font-size: 0.75rem; text-align: center; color: #94a3b8;
+    transition: all 0.2s;
+  }
+  .layout-opt.selected { border-color: var(--accent); color: #60a5fa; background: rgba(37,99,235,0.15); }
+  .layout-opt span { display: block; font-size: 1.1rem; margin-bottom: 4px; }
+
+  .demo-preview {
+    background: rgba(255,255,255,0.04); border-radius: var(--radius);
+    padding: 24px; border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s;
+  }
+  .demo-preview-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .demo-preview-title { font-size: 0.9rem; font-weight: 700; color: #f1f5f9; }
+  .preview-badge {
+    font-size: 0.72rem; background: rgba(37,99,235,0.3); color: #60a5fa;
+    padding: 4px 12px; border-radius: 50px; font-weight: 600;
+  }
+  .preview-grid { display: grid; gap: 12px; }
+  .preview-grid.layout-2 { grid-template-columns: 1fr 1fr; }
+  .preview-grid.layout-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .preview-card {
+    background: rgba(255,255,255,0.07); border-radius: 12px; padding: 16px;
+    border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s;
+  }
+  .preview-card.hidden { display: none; }
+  .preview-card-label { font-size: 0.72rem; color: #64748b; margin-bottom: 6px; }
+  .preview-card-value { font-size: 1.2rem; font-weight: 800; color: #f1f5f9; }
+  .preview-card-sub { font-size: 0.72rem; color: #10b981; margin-top: 3px; }
+  .preview-chart-bar { height: 6px; border-radius: 50px; margin-top: 8px; opacity: 0.7; }
+
+  /* ── PRICING ── */
+  .pricing { background: var(--section-alt); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .pricing-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 32px 28px; border: 1.5px solid var(--border);
+    position: relative; transition: all 0.25s;
+  }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .pricing-card.popular {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-light);
+  }
+  .popular-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    padding: 5px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;
+    white-space: nowrap;
+  }
+  .pricing-tier { font-size: 0.82rem; font-weight: 700; color: var(--ink-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .pricing-price { font-size: 2.4rem; font-weight: 900; color: var(--ink); letter-spacing: -1.5px; line-height: 1; margin-bottom: 4px; }
+  .pricing-price span { font-size: 1rem; font-weight: 500; color: var(--ink-muted); }
+  .pricing-desc { font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--ink-soft); }
+  .pricing-features li .check { color: var(--teal); font-weight: 700; flex-shrink: 0; }
+  .pricing-features li .cross { color: #d1d5db; flex-shrink: 0; }
+  .pricing-btn {
+    width: 100%; padding: 12px; border-radius: 10px;
+    font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    border: none; transition: all 0.2s; text-align: center; text-decoration: none; display: block;
+  }
+  .pricing-btn-outline { background: none; border: 1.5px solid var(--border); color: var(--ink); }
+  .pricing-btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .pricing-btn-fill { background: var(--accent); color: #fff; box-shadow: 0 4px 16px rgba(37,99,235,0.3); }
+  .pricing-btn-fill:hover { background: #1d4ed8; }
+
+  /* ── CASE STUDIES ── */
+  .cases { background: var(--white); }
+  .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .case-card {
+    border-radius: var(--radius); padding: 28px;
+    border: 1.5px dashed var(--border); background: var(--bg);
+    position: relative; overflow: hidden;
+  }
+  .case-placeholder-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--border); color: var(--ink-muted);
+    font-size: 0.68rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .case-industry {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--accent-glow); margin-bottom: 10px;
+  }
+  .case-company { font-size: 1.05rem; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .case-summary { font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 20px; line-height: 1.6; }
+  .case-metrics { display: flex; gap: 20px; }
+  .case-metric-num { font-size: 1.4rem; font-weight: 900; color: var(--ink); letter-spacing: -1px; }
+  .case-metric-label { font-size: 0.72rem; color: var(--ink-muted); }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #0d6d6d 100%);
+    text-align: center; color: #fff;
+    padding: 120px 5vw;
+  }
+  .final-cta .section-label { color: #93c5fd; }
+  .final-cta .section-title { color: #fff; margin-bottom: 12px; }
+  .final-cta p { color: #93c5fd; font-size: 1.05rem; max-width: 520px; margin: 0 auto 40px; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-white { background: #fff; color: var(--accent); padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+  .btn-ghost { background: rgba(255,255,255,0.12); color: #fff; padding: 14px 32px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.3); transition: all 0.2s; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: #94a3b8;
+    padding: 56px 5vw 32px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand h3 { color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; }
+  .footer-brand p { font-size: 0.85rem; line-height: 1.7; max-width: 240px; }
+  .footer-col h4 { color: #e2e8f0; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { text-decoration: none; color: #64748b; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: #fff; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.8rem; color: #475569;
+    flex-wrap: wrap; gap: 12px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(32px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { flex-direction: column; }
+    .hero-visual { justify-content: center; margin-top: 48px; }
+    .prob-sol-grid { grid-template-columns: 1fr; }
+    .industry-panel.active { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .cases-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .demo-container { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .nav-mobile-btn { display: block; }
+    .preview-grid.layout-3 { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2rem; }
+    .hero-stats { gap: 20px; }
+    .pricing-card { padding: 24px 20px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+    .dash-kpis { grid-template-columns: 1fr 1fr; }
+    .dash-funnel { flex-wrap: wrap; }
+  }
+
+  .divider { height: 1px; background: var(--border); width: 100%; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    NexCRM
+  </div>
+  <ul class="nav-links">
+    <li><a href="#features">기능</a></li>
+    <li><a href="#industries">산업별</a></li>
+    <li><a href="#demo">데모</a></li>
+    <li><a href="#pricing">요금제</a></li>
+    <li><a href="#cases">고객 사례</a></li>
+  </ul>
+  <a href="#pricing" class="nav-cta">무료로 시작하기</a>
+  <div class="nav-mobile-btn">☰</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-shape hero-bg-1"></div>
+  <div class="hero-bg-shape hero-bg-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      B2B CRM — 새로운 기준
+    </div>
+    <h1>
+      복잡함은 끝.<br>
+      <em>나만의 CRM</em>을<br>
+      지금 바로 시작하세요.
+    </h1>
+  <p>세XX포스나 허브XX처럼 무겁고 복잡한 도구는 이제 그만. NexCRM은 우리 회사에 꼭 맞는 구조로, 아무 기술 지식 없이도 자유롭게 커스터마이징할 수 있습니다.</p>
+    <div class="hero-btns">
+      <a href="#demo" class="btn-primary">🚀 무료로 시작하기</a>
+      <a href="#demo" class="btn-secondary">데모 체험하기</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">3분</span>
+        <span class="hero-stat-label">평균 설정 소요 시간</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">98%</span>
+        <span class="hero-stat-label">고객 만족도</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">500+</span>
+        <span class="hero-stat-label">국내 B2B 기업 도입</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-dashboard">
+      <div class="dash-header">
+        <span class="dash-title">📊 영업 대시보드</span>
+        <span class="dash-period">2026년 4월</span>
+      </div>
+      <div class="dash-kpis">
+        <div class="dash-kpi">
+          <div class="dash-kpi-label">견적 건수</div>
+          <div class="dash-kpi-value">48</div>
+          <div class="dash-kpi-badge">↑ 12%</div>
+        </div>
+        <div class="dash-kpi">
+          <div class="dash-kpi-label">계약 성공</div>
+          <div class="dash-kpi-value">21</div>
+          <div class="dash-kpi-badge">↑ 8%</div>
+        </div>
+        <div class="dash-kpi">
+          <div class="dash-kpi-label">성공률</div>
+          <div class="dash-kpi-value">43.7%</div>
+          <div class="dash-kpi-badge">↑ 3.2%p</div>
+        </div>
+      </div>
+      <div class="dash-funnel">
+        <div class="funnel-step"><span class="fnum">48</span>신규</div>
+        <div class="funnel-step active"><span class="fnum">36</span>상담</div>
+        <div class="funnel-step"><span class="fnum">28</span>견적</div>
+        <div class="funnel-step"><span class="fnum">21</span>계약</div>
+      </div>
+      <div class="dash-bar-section">
+        <div class="bar-label-row"><span>채널별 성과</span><span>이번 달</span></div>
+        <div class="bar-track"><div class="bar-fill blue"></div></div>
+        <div class="bar-track"><div class="bar-fill teal"></div></div>
+        <div class="bar-track"><div class="bar-fill amber"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM / SOLUTION -->
+<section class="prob-sol" id="about">
+  <div class="reveal">
+    <div class="section-label">왜 NexCRM인가요?</div>
+    <div class="section-title">기존 CRM의 한계를<br>정면으로 해결합니다</div>
+    <p class="section-desc">수백 개의 기능 중 실제로 사용하는 건 몇 개뿐. 무거운 도구에 지치셨나요? NexCRM은 다릅니다.</p>
+  </div>
+  <div class="prob-sol-grid reveal">
+    <div class="prob-col">
+      <h3>기존 CRM의 문제점 <span class="tag tag-prob">PROBLEM</span></h3>
+      <ul class="prob-list">
+        <li>
+          <div class="icon icon-red">❌</div>
+          <div><strong>복잡한 초기 설정</strong> — 도입까지 수 주, 별도 컨설팅 비용이 필요합니다.</div>
+        </li>
+        <li>
+          <div class="icon icon-red">❌</div>
+          <div><strong>불필요한 기능 과부하</strong> — 우리 업무와 상관없는 기능이 화면을 가득 채웁니다.</div>
+        </li>
+        <li>
+          <div class="icon icon-red">❌</div>
+          <div><strong>경직된 데이터 구조</strong> — 우리 회사 방식대로 항목을 바꾸기 어렵습니다.</div>
+        </li>
+        <li>
+          <div class="icon icon-red">❌</div>
+          <div><strong>과도한 비용</strong> — 기업 규모에 관계없이 높은 구독료를 강요합니다.</div>
+        </li>
+      </ul>
+    </div>
+    <div class="prob-col">
+      <h3>NexCRM의 해결 방식 <span class="tag tag-sol">SOLUTION</span></h3>
+      <ul class="prob-list sol-list">
+        <li>
+          <div class="icon icon-green">✅</div>
+          <div><strong>3분 이내 시작</strong> — 가입 즉시 템플릿을 선택하고 바로 업무에 투입됩니다.</div>
+        </li>
+        <li>
+          <div class="icon icon-green">✅</div>
+          <div><strong>필요한 것만 표시</strong> — 우리 팀에 맞는 항목과 뷰만 선택해 구성합니다.</div>
+        </li>
+        <li>
+          <div class="icon icon-green">✅</div>
+          <div><strong>자유로운 데이터 설계</strong> — 코드 없이 필드와 파이프라인을 자유롭게 설계합니다.</div>
+        </li>
+        <li>
+          <div class="icon icon-green">✅</div>
+          <div><strong>합리적인 구조의 요금</strong> — 팀 규모와 사용량에 따라 유연하게 선택합니다.</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="reveal">
+    <div class="section-label">핵심 기능</div>
+    <div class="section-title">우리 회사에 맞게,<br>원하는 대로 구성하세요</div>
+    <p class="section-desc">NexCRM의 모든 기능은 실제 현장에서 필요한 것을 기반으로 설계되었습니다.</p>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feature-icon fi-blue">🎛️</div>
+      <h3>자유로운 커스터마이징</h3>
+      <p>드래그 앤 드롭으로 대시보드를 구성하세요. 개발자 없이도 원하는 레이아웃을 만들 수 있습니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-teal">📊</div>
+      <h3>유연한 대시보드</h3>
+      <p>매출, 고객 여정, 팀별 성과 등 원하는 지표를 한 눈에 볼 수 있도록 대시보드를 자유롭게 편집합니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-amber">⚡</div>
+      <h3>가볍고 빠른 속도</h3>
+      <p>불필요한 기능 없이 필요한 것만 로드합니다. 어떤 환경에서도 빠른 응답 속도를 경험하세요.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-violet">🗂️</div>
+      <h3>맞춤형 데이터 구조</h3>
+      <p>제품 코드, 납기일, 담당 파트너 등 우리 회사만의 데이터 항목을 직접 정의하고 관리합니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-blue">🔗</div>
+      <h3>팀 협업 & 권한 관리</h3>
+      <p>부서별, 역할별 접근 권한을 세밀하게 설정하고 실시간으로 영업 현황을 공유합니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-teal">📬</div>
+      <h3>자동화 알림 & 리마인더</h3>
+      <p>후속 연락 일정, 계약 갱신, 미팅 일정을 자동으로 알려드려 중요한 순간을 놓치지 않습니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-amber">📈</div>
+      <h3>실시간 성과 분석</h3>
+      <p>견적 전환율, 영업 사이클 길이, 채널별 성과를 실시간 차트로 확인하고 전략을 최적화합니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-violet">🔒</div>
+      <h3>안전한 데이터 보안</h3>
+      <p>국내 데이터 센터 운영, 전송 구간 암호화, 정기 보안 감사로 비즈니스 데이터를 안전하게 보호합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries" id="industries">
+  <div class="reveal">
+    <div class="section-label">산업별 활용</div>
+    <div class="section-title">어떤 업종이든<br>NexCRM이 맞춰집니다</div>
+    <p class="section-desc">B2B 영업의 구조는 업종마다 다릅니다. NexCRM은 각 산업의 특성에 맞게 유연하게 구성됩니다.</p>
+  </div>
+  <div class="industry-tabs reveal">
+    <button class="ind-tab active" onclick="showIndustry('manufacturing', this)">🏭 제조업</button>
+    <button class="ind-tab" onclick="showIndustry('it', this)">💻 IT</button>
+    <button class="ind-tab" onclick="showIndustry('service', this)">🤝 서비스업</button>
+    <button class="ind-tab" onclick="showIndustry('distribution', this)">📦 유통업</button>
+    <button class="ind-tab" onclick="showIndustry('construction', this)">🏗️ 건설업</button>
+    <button class="ind-tab" onclick="showIndustry('consulting', this)">📋 컨설팅</button>
+  </div>
+
+  <div id="ind-manufacturing" class="industry-panel active reveal">
+    <div class="ind-content">
+      <h3>🏭 제조업에 최적화된 CRM</h3>
+      <p>생산 일정, 납기 관리, 파트너사별 거래 이력까지 하나의 플랫폼으로 통합 관리하세요.</p>
+      <ul class="ind-points">
+        <li>발주부터 납품까지 영업 파이프라인 추적</li>
+        <li>제품 코드·규격별 맞춤 필드 설계</li>
+        <li>협력사 및 바이어 관계 한눈에 관리</li>
+        <li>납기 리마인더 자동화로 클레임 예방</li>
+      </ul>
+    </div>
+    <div class="ind-mockup">
+      <div class="ind-mock-title">📋 수주 현황판 <span style="background:#dbeafe;color:#2563eb;padding:3px 10px;border-radius:6px;font-size:0.72rem;">제조업 템플릿</span></div>
+      <div class="ind-mock-row"><span>삼성전기 — 회로기판 200pcs</span><span class="ind-mock-status s-ongoing">납기 D-5</span></div>
+      <div class="ind-mock-row"><span>LG화학 — 소재 공급 계약</span><span class="ind-mock-status s-review">검토 중</span></div>
+      <div class="ind-mock-row"><span>현대모비스 — 부품 견적</span><span class="ind-mock-status s-done">계약 완료</span></div>
+      <div class="ind-mock-row"><span>SK하이닉스 — 연간 납품 협의</span><span class="ind-mock-status s-ongoing">진행 중</span></div>
+    </div>
+  </div>
+  <div id="ind-it" class="industry-panel">
+    <div class="ind-content">
+      <h3>💻 IT 기업의 SaaS 영업 관리</h3>
+      <p>구독 갱신, 라이선스 관리, 기술 데모 일정까지 IT 영업의 모든 흐름을 지원합니다.</p>
+      <ul class="ind-points">
+        <li>구독 만료 자동 알림 및 갱신 파이프라인</li>
+        <li>POC·데모 진행 상태 추적</li>
+        <li>계약 유형별(연간/월간) 매출 분류</li>
+        <li>기술 문의 및 영업 협업 연동</li>
+      </ul>
+    </div>
+    <div class="ind-mockup">
+      <div class="ind-mock-title">💻 계정 현황 <span style="background:#ccfbf1;color:#0d9488;padding:3px 10px;border-radius:6px;font-size:0.72rem;">IT 템플릿</span></div>
+      <div class="ind-mock-row"><span>카카오 — Enterprise 갱신</span><span class="ind-mock-status s-review">협의 중</span></div>
+      <div class="ind-mock-row"><span>토스뱅크 — POC 진행</span><span class="ind-mock-status s-ongoing">데모 D-3</span></div>
+      <div class="ind-mock-row"><span>쿠팡 — 연간 라이선스</span><span class="ind-mock-status s-done">계약 완료</span></div>
+      <div class="ind-mock-row"><span>네이버 — Pro 플랜 업셀</span><span class="ind-mock-status s-ongoing">진행 중</span></div>
+    </div>
+  </div>
+  <div id="ind-service" class="industry-panel">
+    <div class="ind-content">
+      <h3>🤝 서비스업 고객 관리</h3>
+      <p>장기 고객 관계, 서비스 이력, 재계약 관리를 체계화하여 이탈률을 낮추세요.</p>
+      <ul class="ind-points">
+        <li>고객별 서비스 히스토리 전체 열람</li>
+        <li>재계약·추가 서비스 타이밍 자동 알림</li>
+        <li>만족도 조사 결과 연동 관리</li>
+        <li>담당자 교체 시 인수인계 자동화</li>
+      </ul>
+    </div>
+    <div class="ind-mockup">
+      <div class="ind-mock-title">🤝 고객 유지 현황 <span style="background:#ede9fe;color:#7c3aed;padding:3px 10px;border-radius:6px;font-size:0.72rem;">서비스업 템플릿</span></div>
+      <div class="ind-mock-row"><span>GS리테일 — 운영 지원 계약</span><span class="ind-mock-status s-done">3년 갱신</span></div>
+      <div class="ind-mock-row"><span>롯데백화점 — VIP 케어</span><span class="ind-mock-status s-ongoing">상담 중</span></div>
+      <div class="ind-mock-row"><span>이마트 — 새 서비스 제안</span><span class="ind-mock-status s-review">검토 중</span></div>
+      <div class="ind-mock-row"><span>CJ ENM — 재계약 협의</span><span class="ind-mock-status s-ongoing">D-14</span></div>
+    </div>
+  </div>
+  <div id="ind-distribution" class="industry-panel">
+    <div class="ind-content">
+      <h3>📦 유통업 거래처 관리</h3>
+      <p>다수의 바이어와 채널을 효율적으로 관리하고, 재고 연동 없이도 발주 흐름을 파악합니다.</p>
+      <ul class="ind-points">
+        <li>거래처별 구매 패턴·주기 분석</li>
+        <li>채널별(온라인/오프라인) 매출 추적</li>
+        <li>반품·클레임 이력 통합 관리</li>
+        <li>프로모션 대상 고객 자동 분류</li>
+      </ul>
+    </div>
+    <div class="ind-mockup">
+      <div class="ind-mock-title">📦 바이어 현황 <span style="background:#fef3c7;color:#d97706;padding:3px 10px;border-radius:6px;font-size:0.72rem;">유통업 템플릿</span></div>
+      <div class="ind-mock-row"><span>홈플러스 — 하반기 발주</span><span class="ind-mock-status s-ongoing">협의 중</span></div>
+      <div class="ind-mock-row"><span>코스트코 — 신상품 입점</span><span class="ind-mock-status s-review">검토 중</span></div>
+      <div class="ind-mock-row"><span>올리브영 — 분기 정산</span><span class="ind-mock-status s-done">완료</span></div>
+      <div class="ind-mock-row"><span>무신사 — 브랜드 협업</span><span class="ind-mock-status s-ongoing">진행 중</span></div>
+    </div>
+  </div>
+  <div id="ind-construction" class="industry-panel">
+    <div class="ind-content">
+      <h3>🏗️ 건설·시공업 프로젝트 영업</h3>
+      <p>대형 프로젝트의 긴 영업 사이클과 다수의 의사결정자를 체계적으로 추적합니다.</p>
+      <ul class="ind-points">
+        <li>발주처·시행사·시공사 관계 매핑</li>
+        <li>입찰 일정 및 서류 마감일 추적</li>
+        <li>프로젝트별 수익성 예측</li>
+        <li>현장 담당자 커뮤니케이션 이력 보관</li>
+      </ul>
+    </div>
+    <div class="ind-mockup">
+      <div class="ind-mock-title">🏗️ 프로젝트 파이프라인 <span style="background:#dbeafe;color:#2563eb;padding:3px 10px;border-radius:6px;font-size:0.72rem;">건설업 템플릿</span></div>
+      <div class="ind-mock-row"><span>판교 데이터센터 — 설비 공사</span><span class="ind-mock-status s-review">입찰 준비</span></div>
+      <div class="ind-mock-row"><span>용산 오피스 리모델링</span><span class="ind-mock-status s-ongoing">견적 제출</span></div>
+      <div class="ind-mock-row"><span>인천 물류센터 신축</span><span class="ind-mock-status s-done">수주 확정</span></div>
+      <div class="ind-mock-row"><span>강남 복합건물 전기공사</span><span class="ind-mock-status s-ongoing">협의 중</span></div>
+    </div>
+  </div>
+  <div id="ind-consulting" class="industry-panel">
+    <div class="ind-content">
+      <h3>📋 컨설팅 제안·수주 관리</h3>
+      <p>제안서 발송부터 계약까지, 컨설팅 특유의 복잡한 의사결정 구조를 명확히 관리합니다.</p>
+      <ul class="ind-points">
+        <li>제안서 버전·발송 이력 추적</li>
+        <li>의사결정자별 관계 지도 관리</li>
+        <li>컨설턴트별 어사인·가용율 파악</li>
+        <li>프로젝트 수익성 분석</li>
+      </ul>
+    </div>
+    <div class="ind-mockup">
+      <div class="ind-mock-title">📋 제안 현황 <span style="background:#ccfbf1;color:#0d9488;padding:3px 10px;border-radius:6px;font-size:0.72rem;">컨설팅 템플릿</span></div>
+      <div class="ind-mock-row"><span>삼성물산 — 디지털 전환 전략</span><span class="ind-mock-status s-review">PT 준비</span></div>
+      <div class="ind-mock-row"><span>한화그룹 — ESG 전략 수립</span><span class="ind-mock-status s-ongoing">제안서 검토</span></div>
+      <div class="ind-mock-row"><span>SK이노베이션 — M&A 자문</span><span class="ind-mock-status s-done">계약 완료</span></div>
+      <div class="ind-mock-row"><span>롯데케미칼 — 조직 개편</span><span class="ind-mock-status s-ongoing">협의 중</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE DEMO -->
+<section class="demo-section" id="demo">
+  <div class="reveal">
+    <div class="section-label">인터랙티브 데모</div>
+    <div class="section-title">직접 커스터마이징해보세요</div>
+    <p class="section-desc">아래에서 원하는 위젯, 색상, 레이아웃을 선택해 나만의 대시보드를 만들어보세요.</p>
+  </div>
+  <div class="demo-container reveal">
+    <div class="demo-controls">
+      <h4>🎛️ 위젯 설정</h4>
+      <div class="toggle-group">
+        <div class="toggle-row">
+          <span class="toggle-label">견적 건수</span>
+          <label class="toggle-switch">
+            <input type="checkbox" checked onchange="toggleWidget('widget-estimate', this)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">계약 금액</span>
+          <label class="toggle-switch">
+            <input type="checkbox" checked onchange="toggleWidget('widget-revenue', this)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">성공률</span>
+          <label class="toggle-switch">
+            <input type="checkbox" checked onchange="toggleWidget('widget-rate', this)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">신규 고객</span>
+          <label class="toggle-switch">
+            <input type="checkbox" onchange="toggleWidget('widget-new', this)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">파이프라인 금액</span>
+          <label class="toggle-switch">
+            <input type="checkbox" onchange="toggleWidget('widget-pipe', this)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <h4>🎨 테마 색상</h4>
+      <div class="color-pickers" style="margin-bottom:24px">
+        <div class="color-dot selected" style="background:#2563eb" onclick="setColor('#2563eb','#dbeafe',this)" title="블루"></div>
+        <div class="color-dot" style="background:#0d9488" onclick="setColor('#0d9488','#ccfbf1',this)" title="틸"></div>
+        <div class="color-dot" style="background:#7c3aed" onclick="setColor('#7c3aed','#ede9fe',this)" title="바이올렛"></div>
+        <div class="color-dot" style="background:#dc2626" onclick="setColor('#dc2626','#fee2e2',this)" title="레드"></div>
+        <div class="color-dot" style="background:#d97706" onclick="setColor('#d97706','#fef3c7',this)" title="앰버"></div>
+      </div>
+
+      <h4>📐 레이아웃</h4>
+      <div class="layout-opts">
+        <div class="layout-opt" onclick="setLayout(1,this)"><span>▬</span>1열</div>
+        <div class="layout-opt selected" onclick="setLayout(2,this)"><span>⊞</span>2열</div>
+        <div class="layout-opt" onclick="setLayout(3,this)"><span>⊟</span>3열</div>
+      </div>
+    </div>
+
+    <div class="demo-preview" id="demo-preview">
+      <div class="demo-preview-header">
+        <span class="demo-preview-title">📊 나의 대시보드 미리보기</span>
+        <span class="preview-badge" id="demo-badge">실시간 반영 중</span>
+      </div>
+      <div class="preview-grid layout-2" id="preview-grid">
+        <div class="preview-card" id="widget-estimate">
+          <div class="preview-card-label">견적 건수</div>
+          <div class="preview-card-value" id="pv-est">48건</div>
+          <div class="preview-card-sub">↑ 12% 지난달 대비</div>
+          <div class="preview-chart-bar" id="bar-est" style="background:#2563eb;width:72%"></div>
+        </div>
+        <div class="preview-card" id="widget-revenue">
+          <div class="preview-card-label">계약 금액</div>
+          <div class="preview-card-value" id="pv-rev">₩2.4억</div>
+          <div class="preview-card-sub">↑ 8% 지난달 대비</div>
+          <div class="preview-chart-bar" id="bar-rev" style="background:#2563eb;width:58%"></div>
+        </div>
+        <div class="preview-card" id="widget-rate">
+          <div class="preview-card-label">계약 성공률</div>
+          <div class="preview-card-value" id="pv-rate">43.7%</div>
+          <div class="preview-card-sub">↑ 3.2%p 전월 대비</div>
+          <div class="preview-chart-bar" id="bar-rate" style="background:#2563eb;width:44%"></div>
+        </div>
+        <div class="preview-card hidden" id="widget-new">
+          <div class="preview-card-label">신규 고객</div>
+          <div class="preview-card-value">12명</div>
+          <div class="preview-card-sub">↑ 5% 지난달 대비</div>
+          <div class="preview-chart-bar" id="bar-new" style="background:#2563eb;width:35%"></div>
+        </div>
+        <div class="preview-card hidden" id="widget-pipe">
+          <div class="preview-card-label">파이프라인 금액</div>
+          <div class="preview-card-value">₩8.1억</div>
+          <div class="preview-card-sub">진행 중인 모든 딜</div>
+          <div class="preview-chart-bar" id="bar-pipe" style="background:#2563eb;width:81%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="reveal">
+    <div class="section-label">요금제</div>
+    <div class="section-title">팀 규모에 맞는<br>합리적인 플랜</div>
+    <p class="section-desc">모든 플랜에서 핵심 기능을 동일하게 사용합니다. 데이터 용량과 지원 범위만 다릅니다.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="pricing-card">
+      <div class="pricing-tier">Free</div>
+      <div class="pricing-price">₩0 <span>/ 월</span></div>
+      <div class="pricing-desc">소규모 팀이 무료로 CRM을 경험할 수 있는 플랜. 핵심 기능은 모두 사용 가능하며, 데이터 저장 용량만 제한됩니다.</div>
+      <ul class="pricing-features">
+        <li><span class="check">✓</span> 모든 핵심 기능 사용 가능</li>
+        <li><span class="check">✓</span> 고객 500건, 딜 200건까지</li>
+        <li><span class="check">✓</span> 대시보드 커스터마이징</li>
+        <li><span class="check">✓</span> 3인 팀원 계정</li>
+        <li><span class="cross">✗</span> 데이터 무제한</li>
+        <li><span class="cross">✗</span> API 연동</li>
+        <li><span class="cross">✗</span> 전담 지원</li>
+      </ul>
+      <a href="#" class="pricing-btn pricing-btn-outline">무료로 시작하기</a>
+    </div>
+    <div class="pricing-card popular">
+      <div class="popular-badge">🔥 가장 인기</div>
+      <div class="pricing-tier">Pro</div>
+      <div class="pricing-price">₩49,000 <span>/ 월</span></div>
+      <div class="pricing-desc">성장하는 팀을 위한 플랜. 데이터 제한 없이 모든 기능을 무제한으로 활용합니다.</div>
+      <ul class="pricing-features">
+        <li><span class="check">✓</span> Free 플랜의 모든 기능</li>
+        <li><span class="check">✓</span> <strong>데이터 무제한</strong></li>
+        <li><span class="check">✓</span> 팀원 무제한</li>
+        <li><span class="check">✓</span> API 연동 및 Webhook</li>
+        <li><span class="check">✓</span> 고급 자동화 규칙</li>
+        <li><span class="check">✓</span> 이메일 우선 지원</li>
+        <li><span class="cross">✗</span> 커스텀 기능 개발</li>
+      </ul>
+      <a href="#" class="pricing-btn pricing-btn-fill">Pro 시작하기</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-tier">Enterprise</div>
+      <div class="pricing-price">문의 <span>/ 맞춤</span></div>
+      <div class="pricing-desc">복잡한 요구사항을 가진 대형 조직을 위한 맞춤형 플랜. 전용 기능 개발과 전담 CSM을 제공합니다.</div>
+      <ul class="pricing-features">
+        <li><span class="check">✓</span> Pro 플랜의 모든 기능</li>
+        <li><span class="check">✓</span> <strong>커스텀 기능 개발</strong></li>
+        <li><span class="check">✓</span> 전용 서버 / 온프레미스 옵션</li>
+        <li><span class="check">✓</span> 전담 CSM 배정</li>
+        <li><span class="check">✓</span> SLA 보장 (99.9% 업타임)</li>
+        <li><span class="check">✓</span> 보안 감사 지원</li>
+        <li><span class="check">✓</span> 도입 교육 및 온보딩</li>
+      </ul>
+      <a href="#" class="pricing-btn pricing-btn-outline">문의하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="cases" id="cases">
+  <div class="reveal">
+    <div class="section-label">고객 사례</div>
+    <div class="section-title">다양한 기업들이<br>NexCRM으로 성장했습니다</div>
+    <p class="section-desc">실제 도입 기업의 사례가 곧 공개될 예정입니다. 아래는 사례 레이아웃 미리보기입니다.</p>
+  </div>
+  <div class="cases-grid reveal">
+
+    <div class="case-card" style="border-style:solid;background:#fff;">
+      <div class="case-industry">📈 영업 관리</div>
+      <div class="case-company" style="font-size:1rem;">"기존 영업을 완전히 디지털로 전환했습니다"</div>
+      <div class="case-summary" style="color:var(--ink-soft);">영업 관리 기능이 특히 유용했습니다. 파이프라인 단계별로 고객을 다음 단계로 전환하기 위해 취해야 할 행동이 명확하게 제시되어, 놓치는 고객 없이 영업을 진행할 수 있었습니다. 영업 성공률을 대시보드에서 즉시 확인할 수 있어 KPI 설정에도 유용하게 활용했습니다.</div>
+      <div class="case-metrics">
+        <div>
+          <div class="case-metric-num" style="color:var(--accent);">+28%</div>
+          <div class="case-metric-label">도입 1년 내 계약 성사율 증가</div>
+        </div>
+        <div>
+          <div class="case-metric-num" style="color:var(--accent);">+32%</div>
+          <div class="case-metric-label">영업 리드 전환율 향상</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card" style="border-style:solid;background:#fff;">
+      <div class="case-industry">🔔 고객 관리</div>
+      <div class="case-company" style="font-size:1rem;">"VIP 고객을 놓치지 않게 됐습니다"</div>
+      <div class="case-summary" style="color:var(--ink-soft);">당사는 고객 사용 주기가 연 1회로, 고객이 브랜드를 잊어버리는 게 늘 고민이었습니다. NexCRM은 고객별 리마인드 메일 발송 일정을 자동으로 제시해주어, 고객 피로도를 최소화하면서도 목적을 달성할 수 있었습니다. 고객 등급 분류 기능으로 S급 고객에 집중하는 것도 가능해졌습니다.</div>
+      <div class="case-metrics">
+        <div>
+          <div class="case-metric-num" style="color:var(--teal);">3.3배</div>
+          <div class="case-metric-label">VIP 고객 재구매율 상승</div>
+        </div>
+        <div>
+          <div class="case-metric-num" style="color:var(--teal);">최소화</div>
+          <div class="case-metric-label">불필요한 고객 이탈 감소</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card" style="border-style:solid;background:#fff;">
+      <div class="case-industry">🏆 종합 성과</div>
+      <div class="case-company" style="font-size:1rem;">"도입 직후부터 수치가 바뀌었습니다"</div>
+      <div class="case-summary" style="color:var(--ink-soft);">복잡하게 흩어져 있던 영업 정보를 하나로 통합하고, 팀 전체가 동일한 파이프라인을 보며 움직이게 되었습니다. 특히 대시보드에서 KPI를 실시간으로 확인하고 조정할 수 있다는 점이 매니저에게 큰 도움이 되었습니다. 도입 후 첫 분기부터 가시적인 성과가 나타났습니다.</div>
+      <div class="case-metrics">
+        <div>
+          <div class="case-metric-num" style="color:var(--violet);">+28%</div>
+          <div class="case-metric-label">계약 성사율 (도입 1년 평균)</div>
+        </div>
+        <div>
+          <div class="case-metric-num" style="color:var(--violet);">+32%</div>
+          <div class="case-metric-label">리드 → 계약 전환율</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="reveal">
+    <div class="section-label">지금 시작하세요</div>
+    <div class="section-title">우리 팀만을 위한<br>CRM, 지금 바로</div>
+    <p>복잡한 설정 없이 3분이면 충분합니다. 신용카드 없이 무료로 시작하고, 필요할 때 업그레이드하세요.</p>
+    <div class="cta-btns">
+      <a href="#pricing" class="btn-white">무료로 시작하기 →</a>
+      <a href="#demo" class="btn-ghost">데모 체험하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>NexCRM</h3>
+      <p>우리 회사에 꼭 맞는 CRM. 복잡함을 걷어내고, 영업에 집중할 수 있는 환경을 만들어 드립니다.</p>
+    </div>
+    <div class="footer-col">
+      <h4>제품</h4>
+      <ul>
+        <li><a href="#">기능 소개</a></li>
+        <li><a href="#">요금제</a></li>
+        <li><a href="#">업데이트 로그</a></li>
+        <li><a href="#">로드맵</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>회사</h4>
+      <ul>
+        <li><a href="#">회사 소개</a></li>
+        <li><a href="#">채용</a></li>
+        <li><a href="#">파트너십</a></li>
+        <li><a href="#">문의하기</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>지원</h4>
+      <ul>
+        <li><a href="#">도움말 센터</a></li>
+        <li><a href="#">API 문서</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+        <li><a href="#">이용약관</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© NexCRM. All rights reserved.</span>
+    <span></span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Industry tabs
+  function showIndustry(id, btn) {
+    document.querySelectorAll('.industry-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.ind-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('ind-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Demo: toggle widgets
+  function toggleWidget(id, chk) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('hidden', !chk.checked);
+  }
+
+  // Demo: set color
+  function setColor(main, light, dot) {
+    document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
+    dot.classList.add('selected');
+    document.querySelectorAll('.preview-chart-bar').forEach(b => b.style.background = main);
+    document.getElementById('demo-badge').style.background = 'rgba(37,99,235,0.25)';
+    document.getElementById('demo-badge').style.color = main;
+  }
+
+  // Demo: set layout
+  function setLayout(cols, opt) {
+    document.querySelectorAll('.layout-opt').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    const grid = document.getElementById('preview-grid');
+    grid.className = 'preview-grid';
+    if (cols === 2) grid.classList.add('layout-2');
+    if (cols === 3) grid.classList.add('layout-3');
+  }
+
+  // Mobile nav
+  document.querySelector('.nav-mobile-btn').addEventListener('click', () => {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      links.style.display = 'flex';
+      links.style.flexDirection = 'column';
+      links.style.position = 'absolute';
+      links.style.top = '64px';
+      links.style.left = '0';
+      links.style.right = '0';
+      links.style.background = '#fff';
+      links.style.padding = '16px 5vw';
+      links.style.borderBottom = '1px solid #e2e5ef';
+      links.style.zIndex = '99';
+    }
+  });
+</script>
+</body>
+</html>
