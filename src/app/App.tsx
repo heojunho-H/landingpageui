@@ -1,4 +1,3 @@
-import '../styles/landing.css';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { ProblemSolution } from './components/ProblemSolution';
